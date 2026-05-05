@@ -31,16 +31,15 @@ export async function listProducts(
     return {
       success: true,
       products,
-     response: formatSuccessResponse(
-  'Products Retrieved Successfully',
-  {
-    Count: Array.isArray(products) ? products.length : (products as any)?.data?.length ?? (products as any)?.total ?? 'unknown',
-    Products: Array.isArray(products) ? products.map((p: any) => ({ id: p.id, title: p.title, visible: p.visible })) : (products as any)?.data?.map((p: any) => ({ id: p.id, title: p.title, visible: p.visible })),
-    Page: page,
-    Limit: limit,
-    Shop: currentShop
-  }
-)
+    response: formatSuccessResponse(
+        'Products Retrieved Successfully',
+        {
+          Count: Array.isArray(products) ? products.length : (products as any)?.data?.length ?? (products as any)?.total ?? 'unknown',
+          Products: Array.isArray(products) ? products.map((p: any) => ({ id: p.id, title: p.title, visible: p.visible })) : (products as any)?.data?.map((p: any) => ({ id: p.id, title: p.title, visible: p.visible })),
+          Page: page,
+          Limit: limit,
+          Shop: currentShop
+        }
       )
     };
   } catch (error: any) {
