@@ -1430,10 +1430,16 @@ server.tool(
 );
 
 // Start receiving messages on stdin and sending messages on stdout
-const transport = new StdioServerTransport();
-await server.connect(transport);
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import http from "http";
 
-console.log("Printify MCP Server started and connected via stdio");
+const port = parseInt(process.env.PORT || "3000");
+const transport = new StreamableHTTPServerTransport({ path: "/mcp" });
+const httpServer = http.createServer((req, res) => transport.handleRequest(req, res));
+httpServer.listen(port, "0.0.0.0", () => {
+  console.error(`Printify MCP Server listening on port ${port}`);
+});
+await server.connect(transport);
 
 // Default export
 export default server;
