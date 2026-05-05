@@ -170,6 +170,7 @@ export class PrintifyAPI {
         // Use the products.list method with pagination parameters
         console.log(`Fetching products for shop ${this.shopId}, page ${page}, limit ${limit}`);
         const response = await this.client.products.list({ page, limit });
+        console.log('Products API response:', JSON.stringify(response, null, 2));
         return response;
       } catch (sdkError) {
         console.error('Error fetching products from Printify API:', sdkError);
