@@ -1434,7 +1434,7 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import http from "http";
 
 const port = parseInt(process.env.PORT || "3000");
-const transport = new StreamableHTTPServerTransport({ path: "/mcp" });
+const transport = new StreamableHTTPServerTransport({ endpoint: "/mcp" });
 const httpServer = http.createServer((req, res) => transport.handleRequest(req, res));
 httpServer.listen(port, "0.0.0.0", () => {
   console.error(`Printify MCP Server listening on port ${port}`);
