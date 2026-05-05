@@ -26,21 +26,21 @@ export async function listProducts(
     const page = options.page || 1;
 
     // Get products
-    const products = await printifyClient.getProducts(limit, page);
-
+   const response = await printifyClient.getProducts(page, limit);
+const products = (response as any)?.data || (Array.isArray(response) ? response : []);
     return {
       success: true,
       products,
     response: formatSuccessResponse(
-        'Products Retrieved Successfully',
-        {
-          Count: Array.isArray(products) ? products.length : (products as any)?.data?.length ?? (products as any)?.total ?? 'unknown',
-          Products: Array.isArray(products) ? products.map((p: any) => ({ id: p.id, title: p.title, visible: p.visible })) : (products as any)?.data?.map((p: any) => ({ id: p.id, title: p.title, visible: p.visible })),
-          Page: page,
-          Limit: limit,
-          Shop: currentShop
-        }
-      )
+  'Products Retrieved Successfully',
+  {
+    Count: products.length,
+    Products: products.map((p: any) => ({ id: p.id, title: p.title, visible: p.visible })),
+    Page: page,
+    Limit: limit,
+    Shop: currentShop
+  }
+)
     };
   } catch (error: any) {
     console.error('Error listing products:', error);
