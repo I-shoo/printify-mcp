@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+console.log("RAW ENV:", process.env.PRINTIFY_API_KEY ? "FOUND" : "NOT FOUND");
+console.log("ALL VARS:", Object.keys(process.env).join(", "));
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
