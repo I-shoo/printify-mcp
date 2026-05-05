@@ -8,7 +8,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { PrintifyAPI } from "./printify-api.js";
 import { ReplicateClient } from "./replicate-client.js";
-import dotenv from "dotenv";
+
 // File system imports moved to service modules
 
 // Export the main classes and types for use as a library
@@ -24,7 +24,7 @@ export * from './utils/error-handler.js';
 export * from './utils/file-utils.js';
 
 // Load environment variables from .env file
-dotenv.config();
+
 
 // Create an MCP server
 const server = new McpServer({
