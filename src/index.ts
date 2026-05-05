@@ -1432,10 +1432,20 @@ server.tool(
 // Start receiving messages on stdin and sending messages on stdout
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import http from "http";
+import { randomUUID } from "crypto";
 
 const port = parseInt(process.env.PORT || "3000");
-const transport = new StreamableHTTPServerTransport({ endpoint: "/mcp" });
-const httpServer = http.createServer((req, res) => transport.handleRequest(req, res));
+const transport = new StreamableHTTPServerTransport({
+  sessionIdGenerator: () => randomUUID(),
+});
+const httpServer = http.createServer((req, res) => {
+  if (req.url?.startsWith("/mcp")) {
+    transport.handleRequest(req, res);
+  } else {
+    res.writeHead(404);
+    res.end("Not found");
+  }
+});
 httpServer.listen(port, "0.0.0.0", () => {
   console.error(`Printify MCP Server listening on port ${port}`);
 });
